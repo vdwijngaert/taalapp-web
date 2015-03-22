@@ -1,0 +1,4 @@
+taalapp
+=======
+
+A Symfony project!
