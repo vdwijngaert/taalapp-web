@@ -1,0 +1,59 @@
+#categories {
+  .category {
+    background: black;
+    color: white;
+    border-radius: 20px;
+    text-align: center;
+    padding: 15px;
+    margin: 15px 0;
+    display: block;
+
+    &:hover, &:focus, &:active {
+      text-decoration: none;
+    }
+
+    .category-icon {
+      position: relative;
+      width: 100%;
+      padding-bottom: 100%;
+      text-align: center;
+
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+      }
+
+      span {
+        position: absolute;
+        top: 40%;
+        left: 0;
+        display: block;
+        width: 100%;
+        text-align: center;
+        font-size: 3em;
+      }
+    }
+
+    .category-name h2 {
+      font-size: 1.5em;
+      text-align: center;
+      font-weight: bold;
+      margin-top: 0;
+    }
+
+    &.add {
+      opacity: 0.75;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &:active, &:focus {
+        opacity: 1;
+      }
+    }
+  }
+}

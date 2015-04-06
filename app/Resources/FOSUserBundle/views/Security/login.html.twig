@@ -1,7 +1,7 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 {% block stylesheets %}
     {{ parent() }}
-     {% stylesheets '../app/Resources/Public/css/login.css' filter="cssrewrite"%}
+     {% stylesheets '../app/Resources/public/css/login.css' filter="cssrewrite"%}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
 {% endblock %}
@@ -14,8 +14,8 @@
     <div class="col-sm-6 col-md-4 col-md-offset-4">
         <h1 class="text-center login-title">Ga verder om in te loggen</h1>
         <div class="account-wall">
-            <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
-                 alt="">
+            <!--<img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
+                 alt="">-->
             <form class="form-signin" action="{{ path("fos_user_security_check") }}" method="post">
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
                 <label for="username" class="sr-only">{{ 'security.login.username'|trans }}</label>

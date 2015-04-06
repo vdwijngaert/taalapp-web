@@ -9,7 +9,7 @@
 
     {% block stylesheets %}
 
-        {% stylesheets '../app/Resources/Public/css/bootstrap.css' filter="cssrewrite"%}
+        {% stylesheets '../app/Resources/public/css/bootstrap.css' %}
         <link rel="stylesheet" href="{{ asset_url }}"/>
         {% endstylesheets %}
     {% endblock %}
@@ -19,7 +19,7 @@
 <div class="container">
     <main>
         {% block main %}
-            <h1 class="page-header">{% block page_title %}{{  block('title') }}{% endblock %}</h1>
+            <h1 class="page-header">{% block page_title %}{{ block('title') }}{% endblock %}</h1>
             {% block body %}
             {% endblock %}
         {% endblock %}
@@ -27,8 +27,8 @@
 </div>
 
 {% block javascripts %}
-    {% javascripts %}
-    <script src="{{ '../app/Resources/Public/js/bootstrap.js' }}" type="text/javascript"></script>
+    {% javascripts '../app/Resources/public/js/jquery-1.11.2.js' '../app/Resources/public/js/bootstrap.js' %}
+    <script src="{{ asset_url }}" type="text/javascript"></script>
     {% endjavascripts %}
 {% endblock %}
 </body>
