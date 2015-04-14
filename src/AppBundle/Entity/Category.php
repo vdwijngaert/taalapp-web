@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Category
  *
- * @ORM\Table()
+ * @ORM\Table(name="category")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\CategoryRepository")
  */
 class Category
@@ -30,9 +30,9 @@ class Category
     private $name;
 
     /**
-     * @var string
+     * @var Icon
      *
-     * @ORM\Column(name="icon", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="Icon")
      */
     private $icon;
 
@@ -48,6 +48,12 @@ class Category
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
      **/
     private $parent;
+
+    /**
+     * @var User
+     * @ORM\ManyToOne(targetEntity="User")
+     */
+    private $user;
 
     function __construct()
     {
@@ -90,10 +96,10 @@ class Category
     /**
      * Set icon
      *
-     * @param string $icon
+     * @param Icon $icon
      * @return Category
      */
-    public function setIcon($icon)
+    public function setIcon(Icon $icon)
     {
         $this->icon = $icon;
 
@@ -103,7 +109,7 @@ class Category
     /**
      * Get icon
      *
-     * @return string 
+     * @return Icon
      */
     public function getIcon()
     {
@@ -140,5 +146,21 @@ class Category
     public function setParent( $parent )
     {
         $this->parent = $parent;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser( $user )
+    {
+        $this->user = $user;
     }
 }

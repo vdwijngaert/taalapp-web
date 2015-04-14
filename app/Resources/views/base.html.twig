@@ -31,7 +31,12 @@
 </div>
 
 {% block javascripts %}
-    {% javascripts '../app/Resources/public/js/jquery-1.11.2.js' '../app/Resources/public/js/bootstrap.js' %}
+    <script>
+        var FRONT = FRONT || {};
+        FRONT.baseUrl = "{{ app.environment != "dev" ? "" : "/app_dev.php"}}";
+        FRONT.fullUrl = "{{ url("homepage") }}";
+    </script>
+    {% javascripts '../app/Resources/public/js/jquery-1.11.2.js' '../app/Resources/public/js/bootstrap.js' '../src/AppBundle/Resources/public/js/main.js' %}
     <script src="{{ asset_url }}" type="text/javascript"></script>
     {% endjavascripts %}
 {% endblock %}

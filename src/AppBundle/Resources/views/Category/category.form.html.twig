@@ -1,0 +1,18 @@
+{{ form_start(categoryForm) }}
+{{ form_row(categoryForm.name) }}
+{{ form_widget(categoryForm.icon) }}
+<div class="form-group">
+    <label class="control-label" for="pictogram">Pictogram zoeken: (&copy; <a target="_blank"
+                                                                              href="http://www.sclera.be/nl/vzw/home">Sclera
+            VZW</a>)</label>
+    <input type="text" placeholder="Vul hier een zoekterm in" name="pictogram" id="pictogram" class="form-control">
+
+    <div id="icons-container">
+        <div id="icons">
+            <div class="icon-list row">
+                <p style="margin-top: 45px;" class="text-center text-muted"><em>Type hierboven je zoekterm in om een pictogram te zoeken.</em></p>
+            </div>
+        </div>
+    </div>
+</div>
+{{ form_end(categoryForm) }}

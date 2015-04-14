@@ -1,0 +1,4 @@
+services:
+    icon_service:
+        class:        AppBundle\Service\IconService
+        arguments:    []

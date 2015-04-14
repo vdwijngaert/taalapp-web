@@ -8,7 +8,7 @@
 {% endblock %}
 {% block title %}Categorieën{% endblock %}
 {% block body %}
-    <div id="categories">
+    <div id="categories" class="row">
         <div class="col-xs-6 col-sm-4 col-md-3">
             <a class="category" href="#">
                 <div class="category-icon"><img src="/bundles/app/images/icons/sport.png"></div>
@@ -52,10 +52,26 @@
             </a>
         </div>
         <div class="col-xs-6 col-sm-4 col-md-3">
-            <a class="category add" href="#">
+            <a class="category add" href="#createModal" data-toggle="modal" data-target="#createModal">
                 <div class="category-icon"><span class="glyphicon glyphicon-plus"></span></div>
                 <div class="category-name"><h2>Nieuwe categorie</h2></div>
             </a>
         </div>
     </div>
+
+    {% embed "AppBundle::modal.html.twig" with {'modal_size': 'modal-lg'} %}
+        {% block modal_style %}fade{% endblock %}
+        {% block modal_id %}createModal{% endblock %}
+        {% block modal_title %}Voeg nieuwe categorie toe{% endblock %}
+        {% block modal_body %}
+            {%  include "AppBundle:Category:category.form.html.twig" with {'categoryForm': categoryForm} %}
+        {% endblock %}
+    {%  endembed %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@AppBundle/Resources/public/js/categories.js' %}
+    <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %}
 {% endblock %}

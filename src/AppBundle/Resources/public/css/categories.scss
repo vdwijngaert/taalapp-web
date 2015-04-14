@@ -57,3 +57,60 @@
     }
   }
 }
+
+#icons-container {
+  margin: 15px 0;
+  position: relative;
+
+  &.loading:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.15) url('/bundles/app/images/preloader.gif') no-repeat center center;
+  }
+}
+
+#icons {
+  height: 250px;
+  overflow-y: scroll;
+  border: 1px solid #f1f1f1;
+  padding: 0 15px;
+
+
+  .icon {
+    margin: 15px 0;
+    background: black;
+    display: block;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    opacity: 0.75;
+    cursor: pointer;
+    text-decoration: none;
+
+    h2 {
+      font-size: 1em;
+      font-weight: bold;
+      text-align: center;
+      color: inherit;
+      margin: 10px -10px 0;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &.selected {
+      opacity: 1;
+      border: 5px solid darkred;
+    }
+  }
+}

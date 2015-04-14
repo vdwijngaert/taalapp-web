@@ -1,0 +1,24 @@
+<div class="modal {% block modal_style %}fade{% endblock %}" id="{% block modal_id %}Modal{% endblock %}" tabindex="-1" role="dialog" {% block extra_params %}{% endblock %}>
+    <div class="modal-dialog {{ modal_size|default("modal-lg") }}">
+        <div class="modal-content">
+            {% block modal_content %}
+                <div class="modal-header">
+                    {% block modal_header %}
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">{% block modal_title %}Modal title{% endblock %}</h4>
+                    {% endblock %}
+                </div>
+                <div class="modal-body">
+                    <div class="placeholder"></div>
+                    {% block modal_body %}Modal body{% endblock %}
+                </div>
+                <div class="modal-footer">
+                    {% block modal_footer %}
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+                        <button type="button" class="btn btn-primary save-changes">Opslaan</button>
+                    {% endblock %}
+                </div>
+            {% endblock modal_content %}
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
