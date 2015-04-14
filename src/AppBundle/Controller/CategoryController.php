@@ -28,17 +28,17 @@ class CategoryController extends Controller {
      * @Route("/{id}", name="homepage", defaults={"id" = null}, requirements={"id": "\d+"})
      * @Template
      */
-    public function indexAction(Category $parent = null)
+    public function indexAction(Category $category = null)
     {
         /**
          * @var $repo CategoryRepository
          */
         $repo = $this->getDoctrine()->getRepository('AppBundle:Category');
 
-        $categories = $repo->getCategories($parent, $this->getUser());
+        $categories = $repo->getCategories($category, $this->getUser());
 
         $categoryForm = $this->createForm(new CategoryType(), new Category(), array('em' => $this->getDoctrine()->getManager()));
-        return array('categoryForm' => $categoryForm->createView(), 'parent' => $parent, 'categories' => $categories);
+        return array('categoryForm' => $categoryForm->createView(), 'parent' => $category, 'categories' => $categories);
     }
 
 

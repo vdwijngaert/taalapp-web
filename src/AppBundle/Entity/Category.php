@@ -55,6 +55,23 @@ class Category
      */
     private $user;
 
+    /**
+     * @var \DateTime
+     *
+     * @Gedmo\Mapping\Annotation\Timestampable(on="create")
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $created;
+
+
+    /**
+     * @var \DateTime
+     *
+     * @Gedmo\Mapping\Annotation\Timestampable(on="update")
+     * @ORM\Column(name="updated", type="datetime")
+     */
+    private $updated;
+
     function __construct()
     {
         $this->children = new ArrayCollection();
@@ -162,5 +179,37 @@ class Category
     public function setUser( $user )
     {
         $this->user = $user;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * @param \DateTime $created
+     */
+    public function setCreated( $created )
+    {
+        $this->created = $created;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * @param \DateTime $updated
+     */
+    public function setUpdated( $updated )
+    {
+        $this->updated = $updated;
     }
 }

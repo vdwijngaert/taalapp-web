@@ -1,6 +1,5 @@
 {{ form_start(categoryForm) }}
 {{ form_row(categoryForm.name) }}
-{{ form_widget(categoryForm.icon) }}
 <div class="form-group">
     <label class="control-label" for="pictogram">Pictogram zoeken: (&copy; <a target="_blank"
                                                                               href="http://www.sclera.be/nl/vzw/home">Sclera
@@ -15,4 +14,5 @@
         </div>
     </div>
 </div>
+<input type="hidden" id="parent" name="parent" value="{{ parent ? parent.id : '' }}">
 {{ form_end(categoryForm) }}

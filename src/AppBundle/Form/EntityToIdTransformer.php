@@ -12,16 +12,18 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-class IconToIdTransformer implements DataTransformerInterface {
+class EntityToIdTransformer implements DataTransformerInterface {
 
     /**
      * @var ObjectManager
      */
     private $om;
+    private $entity;
 
-    function __construct( ObjectManager $om )
+    function __construct( ObjectManager $om, $entity )
     {
         $this->om = $om;
+        $this->entity = $entity;
     }
 
 
@@ -52,13 +54,13 @@ class IconToIdTransformer implements DataTransformerInterface {
      *
      * @throws TransformationFailedException When the transformation fails.
      */
-    public function transform( $icon )
+    public function transform( $entity )
     {
-        if($icon === null) {
+        if($entity === null) {
             return "";
         }
 
-        return $icon->getId();
+        return $entity->getId();
     }
 
     /**
@@ -86,21 +88,21 @@ class IconToIdTransformer implements DataTransformerInterface {
      * @internal param mixed $value The value in the transformed representation
      *
      */
-    public function reverseTransform( $iconId )
+    public function reverseTransform( $entityId )
     {
-        if(!$iconId) {
+        if(!$entityId) {
             return null;
         }
 
-        $icon = $this->om->getRepository('AppBundle:Icon')->find($iconId);
+        $entity = $this->om->getRepository($this->entity)->find($entityId);
 
-        if($icon === null) {
+        if($entity === null) {
             throw new TransformationFailedException(sprintf(
-                'An icon with number "%s" does not exist!',
-                $iconId
+                'An entity with ID "%s" does not exist!',
+                $entityId
             ));
         }
 
-        return $icon;
+        return $entity;
     }
 }

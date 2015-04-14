@@ -15,6 +15,8 @@ class CategoryRepository extends EntityRepository
     public function getCategories( Category $parent = null, User $user )
     {
         $criteria = array( 'user' => $user );
+        $criteria['parent'] = null;
+
 
         if($parent !== null) {
             $criteria['parent'] = $parent;

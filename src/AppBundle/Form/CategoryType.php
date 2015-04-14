@@ -16,14 +16,15 @@ class CategoryType extends AbstractType
     {
         $em = $options['em'];
 
-        $transformer = new IconToIdTransformer( $em );
+        $parentTransformer = new EntityToIdTransformer( $em, 'AppBundle:Category' );
+        $iconTransformer = new EntityToIdTransformer( $em, 'AppBundle:Icon' );
 
         $builder
             ->add( 'name', 'text',
                 array( 'label' => "Naam van de categorie:", 'attr' => array( 'placeholder' => 'Bv: Hobby\'s' ) ) )
-            ->add( $builder->create( 'icon', 'hidden' )->addModelTransformer( $transformer ) )
-            ->add( 'user', 'hidden' )
-            ->add( 'parent', 'hidden' );
+            ->add( $builder->create( 'icon', 'hidden' )->addModelTransformer( $iconTransformer ) )
+            ->add( $builder->create( 'parent', 'hidden' )->addModelTransformer( $parentTransformer ) )
+            ->add( 'user', 'hidden' );
     }
 
     /**

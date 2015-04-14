@@ -129,13 +129,16 @@
         submitForm: function() {
             var $selectedIcon = this.$container.find(".icon.selected"),
                 $form = this.$modal.find("form"),
+                parent = $form.find("#parent").val(),
                 self = this;
 
             if($selectedIcon.length) {
                 $form.find("#appbundle_category_icon").val($selectedIcon.attr("data-icon-id"));
             }
 
-            console.log($form.serialize());
+            if(parent != '') {
+                $form.find("#appbundle_category_parent").val(parent);
+            }
 
             $.ajax({
                 url: FRONT.baseUrl + '/addCategory',
