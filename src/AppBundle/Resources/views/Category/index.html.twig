@@ -6,51 +6,26 @@
         <link href="{{ asset_url }}" rel="stylesheet" type="text/css">
     {% endstylesheets %}
 {% endblock %}
-{% block title %}Categorieën{% endblock %}
+{% set title = parent ? parent.name : 'Categorieën' %}
+{% block title %}
+    {{ title }}
+{% endblock %}
+{% block page_title %}
+    {% if parent %}
+        <a href="{{ path('homepage', {'id': null}) }}" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span> <span class="sr-only">Vorige</span></a>
+    {% endif %}
+    {{ title }}
+{% endblock %}
 {% block body %}
     <div id="categories" class="row">
+        {% for category in categories %}
         <div class="col-xs-6 col-sm-4 col-md-3">
-            <a class="category" href="#">
-                <div class="category-icon"><img src="/bundles/app/images/icons/sport.png"></div>
-                <div class="category-name"><h2>Sport &amp; Spel</h2></div>
+            <a class="category" href="{{ path('homepage', {'id': category.id}) }}">
+                <div class="category-icon"><img src="/bundles/app/images/icons/{{ category.icon.icon }}"></div>
+                <div class="category-name"><h2>{{ category.name }}</h2></div>
             </a>
         </div>
-        <div class="col-xs-6 col-sm-4 col-md-3">
-            <a class="category" href="#">
-                <div class="category-icon"><img src="/bundles/app/images/icons/sport.png"></div>
-                <div class="category-name"><h2>Sport &amp; Spel</h2></div>
-            </a>
-        </div>
-        <div class="col-xs-6 col-sm-4 col-md-3">
-            <a class="category" href="#">
-                <div class="category-icon"><img src="/bundles/app/images/icons/sport.png"></div>
-                <div class="category-name"><h2>Sport &amp; Spel</h2></div>
-            </a>
-        </div>
-        <div class="col-xs-6 col-sm-4 col-md-3">
-            <a class="category" href="#">
-                <div class="category-icon"><img src="/bundles/app/images/icons/sport.png"></div>
-                <div class="category-name"><h2>Sport &amp; Spel</h2></div>
-            </a>
-        </div>
-        <div class="col-xs-6 col-sm-4 col-md-3">
-            <a class="category" href="#">
-                <div class="category-icon"><img src="/bundles/app/images/icons/sport.png"></div>
-                <div class="category-name"><h2>Sport &amp; Spel</h2></div>
-            </a>
-        </div>
-        <div class="col-xs-6 col-sm-4 col-md-3">
-            <a class="category" href="#">
-                <div class="category-icon"><img src="/bundles/app/images/icons/sport.png"></div>
-                <div class="category-name"><h2>Sport &amp; Spel</h2></div>
-            </a>
-        </div>
-        <div class="col-xs-6 col-sm-4 col-md-3">
-            <a class="category" href="#">
-                <div class="category-icon"><img src="/bundles/app/images/icons/sport.png"></div>
-                <div class="category-name"><h2>Sport &amp; Spel</h2></div>
-            </a>
-        </div>
+        {% endfor %}
         <div class="col-xs-6 col-sm-4 col-md-3">
             <a class="category add" href="#createModal" data-toggle="modal" data-target="#createModal">
                 <div class="category-icon"><span class="glyphicon glyphicon-plus"></span></div>

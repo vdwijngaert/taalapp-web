@@ -12,4 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class CategoryRepository extends EntityRepository
 {
+    public function getCategories( Category $parent = null, User $user )
+    {
+        $criteria = array( 'user' => $user );
+
+        if($parent !== null) {
+            $criteria['parent'] = $parent;
+        }
+
+        return $this->findBy( $criteria, array('name' => 'ASC'));
+    }
 }

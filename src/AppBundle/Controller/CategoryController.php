@@ -7,6 +7,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Category;
+use AppBundle\Entity\CategoryRepository;
 use AppBundle\Entity\ErrorMessage;
 use AppBundle\Entity\Icon;
 use AppBundle\Form\CategoryType;
@@ -24,13 +25,20 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class CategoryController extends Controller {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/{id}", name="homepage", defaults={"id" = null}, requirements={"id": "\d+"})
      * @Template
      */
-    public function indexAction()
+    public function indexAction(Category $parent = null)
     {
+        /**
+         * @var $repo CategoryRepository
+         */
+        $repo = $this->getDoctrine()->getRepository('AppBundle:Category');
+
+        $categories = $repo->getCategories($parent, $this->getUser());
+
         $categoryForm = $this->createForm(new CategoryType(), new Category(), array('em' => $this->getDoctrine()->getManager()));
-        return array('categoryForm' => $categoryForm->createView());
+        return array('categoryForm' => $categoryForm->createView(), 'parent' => $parent, 'categories' => $categories);
     }
 
 
