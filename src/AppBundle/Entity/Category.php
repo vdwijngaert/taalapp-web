@@ -44,6 +44,13 @@ class Category
     private $children;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Question", mappedBy="category", cascade={"remove"})
+     **/
+    private $questions;
+
+    /**
      * @var Category
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
      **/
@@ -74,13 +81,14 @@ class Category
 
     function __construct()
     {
-        $this->children = new ArrayCollection();
+        $this->children  = new ArrayCollection();
+        $this->questions = new ArrayCollection();
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -91,9 +99,10 @@ class Category
      * Set name
      *
      * @param string $name
+     *
      * @return Category
      */
-    public function setName($name)
+    public function setName( $name )
     {
         $this->name = $name;
 
@@ -103,7 +112,7 @@ class Category
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -114,9 +123,10 @@ class Category
      * Set icon
      *
      * @param Icon $icon
+     *
      * @return Category
      */
-    public function setIcon(Icon $icon)
+    public function setIcon( Icon $icon )
     {
         $this->icon = $icon;
 
@@ -211,5 +221,39 @@ class Category
     public function setUpdated( $updated )
     {
         $this->updated = $updated;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getQuestions()
+    {
+        return $this->questions;
+    }
+
+    /**
+     * @param ArrayCollection $questions
+     */
+    public function setQuestions( $questions )
+    {
+        $this->questions = $questions;
+    }
+
+    /**
+     * @param Question $question
+     */
+    public function addQuestion( Question $question )
+    {
+        $this->questions->add( $question );
+        $question->setCategory( $this );
+    }
+
+    /**
+     * @param Question $question
+     */
+    public function removeQuestion( Question $question )
+    {
+        $this->questions->removeElement( $question );
+        $question->setCategory( null );
     }
 }
