@@ -1,3 +1,4 @@
+<div class="placeholder"></div>
 {{ form_start(categoryForm) }}
 {{ form_row(categoryForm.name) }}
 <div class="form-group">
@@ -5,6 +6,9 @@
                                                                               href="http://www.sclera.be/nl/vzw/home">Sclera
             VZW</a>)</label>
     <input type="text" placeholder="Vul hier een zoekterm in" name="pictogram" id="pictogram" class="form-control">
+    {% if mode == "edit" %}
+    <p class="help-block">Als je geen pictogram selecteert, dan blijft het oude staan.</p>
+    {% endif %}
 
     <div id="icons-container">
         <div id="icons">
@@ -14,5 +18,7 @@
         </div>
     </div>
 </div>
-<input type="hidden" id="parent" name="parent" value="{{ parent ? parent.id : '' }}">
+{% if parent is defined %}
+    <input type="hidden" id="parent" name="parent" value="{{ parent ? parent.id : '' }}">
+{% endif %}
 {{ form_end(categoryForm) }}

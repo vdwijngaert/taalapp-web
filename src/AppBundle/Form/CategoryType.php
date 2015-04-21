@@ -17,6 +17,7 @@ class CategoryType extends AbstractType
         $em = $options['em'];
 
         $parentTransformer = new EntityToIdTransformer( $em, 'AppBundle:Category' );
+        $userTransformer = new EntityToIdTransformer( $em, 'AppBundle:User' );
         $iconTransformer = new EntityToIdTransformer( $em, 'AppBundle:Icon' );
 
         $builder
@@ -24,7 +25,7 @@ class CategoryType extends AbstractType
                 array( 'label' => "Naam van de categorie:", 'attr' => array( 'placeholder' => 'Bv: Hobby\'s' ) ) )
             ->add( $builder->create( 'icon', 'hidden' )->addModelTransformer( $iconTransformer ) )
             ->add( $builder->create( 'parent', 'hidden' )->addModelTransformer( $parentTransformer ) )
-            ->add( 'user', 'hidden' );
+            ->add( $builder->create( 'user', 'hidden' )->addModelTransformer( $userTransformer ) );
     }
 
     /**

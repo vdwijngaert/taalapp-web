@@ -7,9 +7,31 @@
     padding: 15px;
     margin: 15px 0;
     display: block;
+    position: relative;
+
+    .editBtn {
+      display: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: white;
+      color: black;
+      border: 0;
+      font-size: 1.5em;
+      padding: 5px 10px;
+
+      &:hover {
+        color: white;
+        background: black;
+      }
+    }
 
     &:hover, &:focus, &:active {
       text-decoration: none;
+
+      .editBtn {
+        display: block;
+      }
     }
 
     .category-icon {
