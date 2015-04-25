@@ -1,0 +1,58 @@
+{% extends "::base.html.twig" %}
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets 'bundles/app/css/devices.scss' %}
+    <link href="{{ asset_url }}" rel="stylesheet" type="text/css">
+    {% endstylesheets %}
+{% endblock %}
+{% block title %}Mijn apparaten{% endblock %}
+
+{% block body %}
+    <p class="lead">Beheer hier al de apparaten die gekoppeld zijn met jouw gebruikersaccount. Elk apparaat heeft een
+        unieke code om te herkennen.</p>
+
+    <div class="table-responsive" id="device-list">
+        <div class="placeholder"></div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Apparaat</th>
+                    <th class="text-right">Laatst actief</th>
+                    <th class="text-right">Verwijderen</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for device in devices %}
+                    <tr data-device-id="{{ device.id }}">
+                        <td>{{ device.name }}</td>
+                        <td class="text-right">{{ device.lastActive ? device.lastActive|date('d-m-Y H:i:s') : 'Geen activiteit' }}</td>
+                        <td class="text-right"><a class="removeBtn btn btn-sm btn-default"><span class="glyphicon glyphicon-trash"></span></a></td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="2"><p class="text-muted text-center"><em>Je hebt nog geen apparaat toegevoegd. Doe dit met behulp van de knop.</em></p></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center">
+        <button class="btn btn-lg btn-primary" type="button" data-toggle="modal" data-target="#deviceModal"><span class="glyphicon glyphicon-phone"></span> Apparaat toevoegen</button>
+    </div>
+    {% embed "AppBundle::modal.html.twig" with {'modal_size': 'modal-md'} %}
+        {% block modal_style %}fade{% endblock %}
+        {% block modal_id %}deviceModal{% endblock %}
+        {% block modal_title %}Nieuw apparaat{% endblock %}
+        {% block modal_body %}
+            {% include "AppBundle:Device:device.form.html.twig" with {'deviceForm': deviceForm} %}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@AppBundle/Resources/public/js/devices.js' %}
+    <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %}
+{% endblock %}

@@ -12,7 +12,8 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
+                <li class="{{ app.request.get('_route') == 'homepage' ? 'active' : '' }}"><a href="{{ path("homepage") }}"><span class="glyphicon glyphicon-th-list"></span> Categorie&euml;n</a></li>
+                <li class="{{ app.request.get('_route') == 'devices' ? 'active' : '' }}"><a href="{{ path("devices") }}"><span class="glyphicon glyphicon-phone"></span> Mijn apparaten</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">

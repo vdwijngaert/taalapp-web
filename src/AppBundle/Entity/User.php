@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,9 +18,27 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * var ArrayCollection
+     *
+     * ORM\OneToMany(targetEntity="Device", mappedBy="user", cascade={"remove"})
+     **
+    private $devices;*/
+
     public function __construct()
     {
         parent::__construct();
-        // your own logic
+
+        //$this->devices = new ArrayCollection();
     }
+
+    /*public function addDevice(Device $device) {
+        $this->devices->add($device);
+        $device->setUser($this);
+    }
+
+    public function removeDevice(Device $device) {
+        $this->devices->removeElement($device);
+        $device->setUser(null);
+    }*/
 }
