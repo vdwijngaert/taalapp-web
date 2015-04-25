@@ -80,23 +80,24 @@ class CategoryController extends Controller
 
     /**
      * @Route("/loadIcons")
-     *
-     * public function loadIcons() {
-     * $iconRepo = $this->getDoctrine()->getRepository('AppBundle:Icon');
-     * $em = $this->getDoctrine()->getManager();
-     *
-     * $icons = glob(__DIR__ . "/../Resources/public/images/icons/*.png");
-     *
-     * foreach($icons as $file) {
-     * $icon = new Icon($file);
-     *
-     * $em->persist($icon);
-     * }
-     *
-     * $em->flush();
-     *
-     * return new Response(sizeof($iconRepo->findAll()));
-     * }*/
+     */
+    public function loadIcons()
+    {
+        $iconRepo = $this->getDoctrine()->getRepository( 'AppBundle:Icon' );
+        $em       = $this->getDoctrine()->getManager();
+
+        $icons = glob( __DIR__ . "/../Resources/public/images/icons/*.png" );
+
+        foreach ($icons as $file) {
+            $icon = new Icon( $file );
+
+            $em->persist( $icon );
+        }
+
+        $em->flush();
+
+        return new Response( sizeof( $iconRepo->findAll() ) );
+    }
 
     /**
      * @Route("/addCategory")
