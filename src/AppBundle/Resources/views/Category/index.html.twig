@@ -2,7 +2,7 @@
 {% block stylesheets %}
     {{ parent() }}
 
-    {% stylesheets 'bundles/app/css/categories.scss' %}
+    {% stylesheets 'bundles/app/css/*.scss' %}
         <link href="{{ asset_url }}" rel="stylesheet" type="text/css">
     {% endstylesheets %}
 {% endblock %}
@@ -34,18 +34,36 @@
                 <div class="category-name"><h2>Nieuwe {{ buttonText }}</h2></div>
             </a>
         </div>
-        {% if parent %}
+        {# if parent
             <div class="col-xs-6 col-sm-4 col-md-3">
                 <a class="category add" href="#newQuestionModal" data-toggle="modal" data-target="#newQuestionModal">
                     <div class="category-icon"><span>?</span></div>
                     <div class="category-name"><h2>Nieuwe vraag</h2></div>
                 </a>
             </div>
-        {% endif %}
+        endif #}
     </div>
 
     {% if parent %}
         <h2 class="page-header"><span class="glyphicon glyphicon-question-sign"></span> Vragen</h2>
+
+        <div id="questions">
+            {% if questions|length == 0 %}
+            <p class="text-muted"><em>Er zijn nog een vragen toegevoegd aan deze categorie.</em></p>
+            {% else %}
+            <ul class="question-list">
+                {% for question in questions %}
+                    <li><a data-question-id="{{ question.id }}" href="javascript:void(null);">{{ question.question }}</a></li>
+                {% else %}
+                    <li><p class="text-muted"><em>Er zijn nog een vragen toegevoegd aan deze categorie.</em></p></li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            <button data-toggle="modal" id="addQuestionButton" data-target="#createQuestionModal" type="button" class="btn btn-primary btn-block btn-lg"><span class="glyphicon glyphicon-plus"></span> Vraag toevoegen</button>
+        </div>
+
+
     {% endif %}
 
     {% embed "AppBundle::modal.html.twig" with {'modal_size': 'modal-lg'} %}
@@ -54,6 +72,14 @@
         {% block modal_title %}Voeg nieuwe categorie toe{% endblock %}
         {% block modal_body %}
             {%  include "AppBundle:Category:category.form.html.twig" with {'categoryForm': categoryForm, 'parent': parent, 'mode': 'create'} %}
+        {% endblock %}
+    {%  endembed %}
+    {% embed "AppBundle::modal.html.twig" with {'modal_size': 'modal-lg'} %}
+        {% block modal_style %}fade{% endblock %}
+        {% block modal_id %}createQuestionModal{% endblock %}
+        {% block modal_title %}Voeg nieuwe vraag toe{% endblock %}
+        {% block modal_body %}
+            {%  include "AppBundle:Question:question.form.html.twig" with {'questionForm': questionForm, 'mode': 'create'} %}
         {% endblock %}
     {%  endembed %}
     {% embed "AppBundle::modal.html.twig" with {'modal_size': 'modal-lg'} %}
@@ -69,11 +95,29 @@
             <button type="button" class="btn btn-primary save-changes">Opslaan</button>
         {% endblock %}
     {%  endembed %}
+    {% embed "AppBundle::modal.html.twig" with {'modal_size': 'modal-lg'} %}
+        {% block modal_style %}fade{% endblock %}
+        {% block modal_id %}editQuestionModal{% endblock %}
+        {% block modal_title %}Bewerk vraag{% endblock %}
+        {% block modal_body %}
+            Nothing to see here
+        {% endblock %}
+        {% block modal_footer %}
+            <button type="button" class="btn btn-danger delete">Verwijderen</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+            <button type="button" class="btn btn-primary save-changes">Opslaan</button>
+        {% endblock %}
+    {%  endembed %}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts '@AppBundle/Resources/public/js/categories.js' %}
+    {% if parent %}
+    <script>
+        var currentCategoryId = {{ parent.id }};
+    </script>
+    {% endif %}
+    {% javascripts '@AppBundle/Resources/public/js/*.js' %}
     <script src="{{ asset_url }}" type="text/javascript"></script>
     {% endjavascripts %}
 {% endblock %}

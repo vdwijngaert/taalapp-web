@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Question
@@ -25,6 +26,7 @@ class Question
      * @var string
      *
      * @ORM\Column(name="question", type="string", length=255)
+     * @Assert\NotBlank(message="De vraag kan niet leeg zijn.")
      */
     private $question;
 
@@ -33,6 +35,23 @@ class Question
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="questions")
      **/
     private $category;
+
+    /**
+     * @var \DateTime
+     *
+     * @Gedmo\Mapping\Annotation\Timestampable(on="create")
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $created;
+
+
+    /**
+     * @var \DateTime
+     *
+     * @Gedmo\Mapping\Annotation\Timestampable(on="update")
+     * @ORM\Column(name="updated", type="datetime")
+     */
+    private $updated;
 
     /**
      * Get id
@@ -81,5 +100,37 @@ class Question
     public function setCategory( $category )
     {
         $this->category = $category;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * @param \DateTime $created
+     */
+    public function setCreated( $created )
+    {
+        $this->created = $created;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * @param \DateTime $updated
+     */
+    public function setUpdated( $updated )
+    {
+        $this->updated = $updated;
     }
 }

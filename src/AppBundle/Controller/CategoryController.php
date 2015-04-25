@@ -10,7 +10,9 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\CategoryRepository;
 use AppBundle\Entity\ErrorMessage;
 use AppBundle\Entity\Icon;
+use AppBundle\Entity\Question;
 use AppBundle\Form\CategoryType;
+use AppBundle\Form\QuestionType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -39,16 +41,22 @@ class CategoryController extends Controller
          * @var $repo CategoryRepository
          */
         $repo = $this->getDoctrine()->getRepository( 'AppBundle:Category' );
+        $questionRepo = $this->getDoctrine()->getRepository('AppBundle:Question');
 
         $categories = $repo->getCategories( $category, $this->getUser() );
 
         $categoryForm = $this->createForm( new CategoryType(), new Category(),
             array( 'em' => $this->getDoctrine()->getManager() ) );
+        $questionForm = $this->createForm( new QuestionType(), new Question());
+
+        $questions = $category == null ? array() : $questionRepo->findBy(array('category' => $category), array('question' => 'ASC'));
 
         return array(
             'categoryForm' => $categoryForm->createView(),
+            'questionForm' => $questionForm->createView(),
             'parent'       => $category,
-            'categories'   => $categories
+            'categories'   => $categories,
+            'questions'    => $questions
         );
     }
 

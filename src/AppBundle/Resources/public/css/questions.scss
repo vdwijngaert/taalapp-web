@@ -1,0 +1,20 @@
+#questions {
+  .question-list {
+    padding: 0;
+    list-style: none;
+
+    li a {
+      background: black;
+      color: white;
+      display: block;
+      padding: 15px;
+      margin: 5px 0;
+      font-size: 1.25em;
+
+      &:hover, &:active, &:focus {
+        text-decoration: none;
+        outline: none;
+      }
+    }
+  }
+}
