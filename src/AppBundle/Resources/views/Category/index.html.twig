@@ -117,7 +117,10 @@
         var currentCategoryId = {{ parent.id }};
     </script>
     {% endif %}
-    {% javascripts '@AppBundle/Resources/public/js/*.js' %}
+    {% javascripts
+    '@AppBundle/Resources/public/js/categories.js'
+    '@AppBundle/Resources/public/js/questions.js'
+    %}
     <script src="{{ asset_url }}" type="text/javascript"></script>
     {% endjavascripts %}
 {% endblock %}

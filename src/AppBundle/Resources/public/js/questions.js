@@ -1,4 +1,4 @@
-(function ($) {
+(function($) {
     var $container = $("#questions");
 
     if (!$container.length) return;
