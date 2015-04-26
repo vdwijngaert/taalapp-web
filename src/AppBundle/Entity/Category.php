@@ -72,7 +72,6 @@ class Category
      */
     private $created;
 
-
     /**
      * @var \DateTime
      *
@@ -81,8 +80,17 @@ class Category
      */
     private $updated;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="status", type="integer", options={"default"=1})
+     */
+    private $status;
+
+
     function __construct()
     {
+        $this->status = 1;
         $this->children  = new ArrayCollection();
         $this->questions = new ArrayCollection();
     }
@@ -257,5 +265,25 @@ class Category
     {
         $this->questions->removeElement( $question );
         $question->setCategory( null );
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param int $status
+     */
+    public function setStatus( $status )
+    {
+        $this->status = $status;
+    }
+
+    public function isDeleted() {
+        return $this->status == 0;
     }
 }

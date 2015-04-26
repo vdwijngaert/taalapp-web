@@ -54,6 +54,17 @@ class Question
     private $updated;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="status", type="integer", options={"default"=1})
+     */
+    private $status;
+
+    public function __construct() {
+        $this->status = 1;
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -132,5 +143,25 @@ class Question
     public function setUpdated( $updated )
     {
         $this->updated = $updated;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param int $status
+     */
+    public function setStatus( $status )
+    {
+        $this->status = $status;
+    }
+
+    public function isDeleted() {
+        return $this->status == 0;
     }
 }
