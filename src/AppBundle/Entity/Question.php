@@ -8,10 +8,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Question
  *
- * @ORM\Table()
+ * @ORM\Table(name="category")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\QuestionRepository")
  */
-class Question
+class Question implements \JsonSerializable
 {
     /**
      * @var integer
@@ -163,5 +163,23 @@ class Question
 
     public function isDeleted() {
         return $this->status == 0;
+    }
+
+    /**
+     * (PHP 5 &gt;= 5.4.0)<br/>
+     * Specify data which should be serialized to JSON
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     */
+    function jsonSerialize()
+    {
+        return array(
+            'id' => $this->getId(),
+            'question' => $this->getQuestion(),
+            'category' => $this->getCategory()->getId(),
+            'status' => $this->getStatus(),
+            'updated' => $this->getUpdated()
+        );
     }
 }

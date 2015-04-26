@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 /**
  * Class DefaultController
@@ -20,14 +21,55 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class ApiController extends Controller
 {
+    private function getDeviceByRequest( Request $request )
+    {
+        $userId = $request->headers->get( 'X-Auth-User', 0 );
+        $token  = $request->headers->get( 'X-Auth-Token', '' );
+
+        $user = $this->getDoctrine()->getRepository( 'AppBundle:User' )->findOneById( $userId );
+
+        if ($user == null) {
+            throw new UnauthorizedHttpException( "U bent niet ingelogd." );
+        }
+
+        $device = $this->getDoctrine()->getRepository( 'AppBundle:Device' )->getDevice( $user, $token );
+
+        if ($device == null) {
+            throw new UnauthorizedHttpException( "U bent niet ingelogd." );
+        }
+
+        return $device;
+    }
+
     /**
      * @Route("/ping")
      *
      * @return JsonResponse
      */
-    public function pingAction()
+    public function pingAction( Request $request )
     {
+        $device = $this->getDeviceByRequest( $request );
+
         return new JsonResponse( 'pong' );
+    }
+    /**
+     * @Route("/getAll")
+     *
+     * @return JsonResponse
+     */
+    public function getAllAction( Request $request )
+    {
+        $device = $this->getDeviceByRequest( $request );
+
+        $categories = $this->getDoctrine()->getRepository('AppBundle:Category')->findByUser($device->getUser());
+        $questions = $this->getDoctrine()->getRepository('AppBundle:Question')->findByUser($device->getUser());
+
+        $return = new \StdClass();
+
+        $return->categories = $categories;
+        $return->questions = $questions;
+
+        return new JsonResponse( $return );
     }
 
     /**
@@ -68,9 +110,10 @@ class ApiController extends Controller
         } else {
             $userData = new \StdClass();
 
-            $userData->userName = $device->getUser()->getUsername();
-            $userData->userId   = $device->getUser()->getId();
-            $userData->token    = $token;
+            $userData->userName   = $device->getUser()->getUsername();
+            $userData->userId     = $device->getUser()->getId();
+            $userData->token      = $token;
+            $userData->deviceName = $device->getName();
 
             $device->setLastActive( new \DateTime() );
 
