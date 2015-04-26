@@ -14,18 +14,25 @@ use Doctrine\ORM\EntityRepository;
 class DeviceRepository extends EntityRepository
 {
     const TOKEN_LENGTH = 6;
+
     public function findByUser( User $user )
     {
         return $this->findBy( array( 'user' => $user ), array( 'lastActive' => 'desc' ) );
     }
 
-    public function generateToken() {
-        $token = StringUtil::randomString(self::TOKEN_LENGTH);
+    public function generateToken()
+    {
+        $token = StringUtil::randomString( self::TOKEN_LENGTH );
 
-        while(sizeof($this->findByToken($token))) {
-            $token = StringUtil::randomString(self::TOKEN_LENGTH);
+        while (sizeof( $this->findByToken( $token ) )) {
+            $token = StringUtil::randomString( self::TOKEN_LENGTH );
         }
 
-        return $token;
+        return strtoupper( $token );
+    }
+
+    public function getDevice( User $user, $token )
+    {
+        return $this->findOneBy( array( 'user' => $user, 'token' => $token ) );
     }
 }
