@@ -120,7 +120,7 @@ class QuestionController extends Controller {
      *
      * @return JsonResponse
      */
-    public function deleteCategoryAction( Question $question )
+    public function deleteQuestionAction( Question $question )
     {
         try {
             if ($question->getCategory()->getUser() != $this->getUser()) {
@@ -129,7 +129,8 @@ class QuestionController extends Controller {
 
             $em = $this->getDoctrine()->getManager();
 
-            $em->remove( $question );
+            $question->setStatus(0);
+            //$em->remove( $question );
 
             $em->flush();
 

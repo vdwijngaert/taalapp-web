@@ -49,7 +49,7 @@ class CategoryController extends Controller
             array( 'em' => $this->getDoctrine()->getManager() ) );
         $questionForm = $this->createForm( new QuestionType(), new Question());
 
-        $questions = $category == null ? array() : $questionRepo->findBy(array('category' => $category), array('question' => 'ASC'));
+        $questions = $category == null ? array() : $questionRepo->findBy(array('category' => $category, 'status' => 1), array('question' => 'ASC'));
 
         return array(
             'categoryForm' => $categoryForm->createView(),
@@ -184,7 +184,8 @@ class CategoryController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
-            $em->remove( $category );
+            //$em->remove( $category );
+            $category->setStatus(0);
 
             $em->flush();
 
