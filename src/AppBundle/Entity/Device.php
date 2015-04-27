@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Device
  *
- * @ORM\Table()
+ * @ORM\Table(name="device")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\DeviceRepository")
  */
 class Device implements \JsonSerializable
