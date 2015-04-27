@@ -12,7 +12,8 @@
 {% endblock %}
 {% block page_title %}
     {% if parent %}
-        <a href="{{ path('homepage', {'id': null}) }}" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span> <span class="sr-only">Vorige</span></a>
+        <a href="{{ path('homepage', {'id': parent.parent ? parent.parent.id : null }) }}" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span> <span class="sr-only">Vorige</span></a>
+        <img src="/bundles/app/images/icons/{{ parent.icon.icon }}" width="50">
     {% endif %}
     {{ title }}
 {% endblock %}

@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Question
  *
- * @ORM\Table(name="category")
+ * @ORM\Table(name="question")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\QuestionRepository")
  */
 class Question implements \JsonSerializable

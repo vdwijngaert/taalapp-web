@@ -68,6 +68,7 @@ class ApiController extends Controller
 
         $return->categories = $categories;
         $return->questions = $questions;
+        $return->date = (new \DateTime())->format('Y-m-d H:i:s');
 
         return new JsonResponse( $return );
     }
