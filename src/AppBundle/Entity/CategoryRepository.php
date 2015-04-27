@@ -14,18 +14,19 @@ class CategoryRepository extends EntityRepository
 {
     public function getCategories( Category $parent = null, User $user )
     {
-        $criteria = array( 'user' => $user, 'status' => 1 );
+        $criteria           = array( 'user' => $user, 'status' => 1 );
         $criteria['parent'] = null;
 
 
-        if($parent !== null) {
+        if ($parent !== null) {
             $criteria['parent'] = $parent;
         }
 
-        return $this->findBy( $criteria, array('name' => 'ASC'));
+        return $this->findBy( $criteria, array( 'name' => 'ASC' ) );
     }
 
-    public function findByUser(User $user) {
+    public function findByUser( User $user )
+    {
         //return $this->findBy(array('user' => $user, 'status' => 1), array('id' => 'asc'));
 
         $categories = array();
@@ -34,23 +35,23 @@ class CategoryRepository extends EntityRepository
 
         $query = "SELECT cat.*, i.icon FROM category cat join icon i on(cat.icon_id = i.id) where cat.status = 1 and cat.user_id = :user_id order by cat.id asc";
 
-        $statement = $connection->prepare($query);
-        $statement->bindValue('user_id', $user->getId());
+        $statement = $connection->prepare( $query );
+        $statement->bindValue( 'user_id', $user->getId() );
 
         $statement->execute();
 
         $cats = $statement->fetchAll();
 
-        foreach($cats as $cat) {
+        foreach ($cats as $cat) {
             $newcat = new \StdClass();
 
-            $newcat->id = $cat['id'];
-            $newcat->user = $cat['user_id'];
-            $newcat->parent = $cat['parent_id'];
-            $newcat->name = $cat['name'];
-            $newcat->icon = $cat['icon'];
-            $newcat->status = $cat['status'];
-            $newcat->updated = new \DateTime($cat['updated']);
+            $newcat->id      = $cat['id'];
+            $newcat->user    = $cat['user_id'];
+            $newcat->parent  = $cat['parent_id'];
+            $newcat->name    = $cat['name'];
+            $newcat->icon    = $cat['icon'];
+            $newcat->status  = $cat['status'];
+            $newcat->updated = $cat['updated'];
 
             $categories[] = $newcat;
         }
