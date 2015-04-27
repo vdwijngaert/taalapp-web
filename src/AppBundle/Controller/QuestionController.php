@@ -65,7 +65,7 @@ class QuestionController extends Controller {
     }
 
     /**
-     * @Route("/editForm/{id}", name="edit_form", requirements={"id": "\d+"})
+     * @Route("/editForm/{id}", name="edit_question_form", requirements={"id": "\d+"})
      * @Template("AppBundle:Question:question.form.html.twig")
      *
      * @param Question $question
