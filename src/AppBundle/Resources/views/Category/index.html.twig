@@ -49,17 +49,13 @@
         <h2 class="page-header"><span class="glyphicon glyphicon-question-sign"></span> Vragen</h2>
 
         <div id="questions">
-            {% if questions|length == 0 %}
-            <p class="text-muted"><em>Er zijn nog een vragen toegevoegd aan deze categorie.</em></p>
+        <ul class="question-list">
+            {% for question in questions %}
+                <li><a data-question-id="{{ question.id }}" href="javascript:void(null);">{{ question.question }}</a></li>
             {% else %}
-            <ul class="question-list">
-                {% for question in questions %}
-                    <li><a data-question-id="{{ question.id }}" href="javascript:void(null);">{{ question.question }}</a></li>
-                {% else %}
-                    <li><p class="text-muted"><em>Er zijn nog een vragen toegevoegd aan deze categorie.</em></p></li>
-                {% endfor %}
-            </ul>
-            {% endif %}
+                <li><p class="text-muted"><em>Er zijn nog geen vragen toegevoegd aan deze categorie.</em></p></li>
+            {% endfor %}
+        </ul>
 
             <button data-toggle="modal" id="addQuestionButton" data-target="#createQuestionModal" type="button" class="btn btn-primary btn-block btn-lg"><span class="glyphicon glyphicon-plus"></span> Vraag toevoegen</button>
         </div>
