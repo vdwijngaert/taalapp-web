@@ -184,8 +184,7 @@ class CategoryController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
-            //$em->remove( $category );
-            $category->setStatus(0);
+            $this->deleteCategory($category);
 
             $em->flush();
 
@@ -193,6 +192,28 @@ class CategoryController extends Controller
         } catch ( \Exception $e ) {
             return new JsonResponse( new ErrorMessage( "Kon categorie niet verwijderen",
                 $e->getMessage() ) );
+        }
+    }
+
+    private function deleteCategory(Category $category ) {
+        $category->setStatus(0);
+
+        $children = $category->getChildren();
+
+        /**
+         * @var Category $subCategory
+         */
+        foreach($children as $subCategory) {
+            $this->deleteCategory($subCategory);
+        }
+
+        $questions = $category->getQuestions();
+
+        /**
+         * @var Question $question
+         */
+        foreach($questions as $question) {
+            $question->setStatus(0);
         }
     }
 }

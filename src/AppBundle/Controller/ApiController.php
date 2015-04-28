@@ -52,6 +52,7 @@ class ApiController extends Controller
 
         return new JsonResponse( 'pong' );
     }
+
     /**
      * @Route("/getAll")
      *
@@ -61,14 +62,36 @@ class ApiController extends Controller
     {
         $device = $this->getDeviceByRequest( $request );
 
-        $categories = $this->getDoctrine()->getRepository('AppBundle:Category')->findByUser($device->getUser());
-        $questions = $this->getDoctrine()->getRepository('AppBundle:Question')->findByUser($device->getUser());
+        $categories = $this->getDoctrine()->getRepository( 'AppBundle:Category' )->findByUser( $device->getUser() );
+        $questions  = $this->getDoctrine()->getRepository( 'AppBundle:Question' )->findByUser( $device->getUser() );
 
         $return = new \StdClass();
 
         $return->categories = $categories;
-        $return->questions = $questions;
-        $return->date = (new \DateTime())->format('Y-m-d H:i:s');
+        $return->questions  = $questions;
+        $return->date       = ( new \DateTime() )->format( 'Y-m-d H:i:s' );
+
+        return new JsonResponse( $return );
+    }
+
+    /**
+     * @Route("/getAllAfter")
+     *
+     * @return JsonResponse
+     */
+    public function getAllAfterAction( Request $request )
+    {
+        $device = $this->getDeviceByRequest( $request );
+        $after  = \DateTime::createFromFormat( 'Y-m-d H:i:s', $request->get('date', '2015-01-01 00:00:00') );
+
+        $categories = $this->getDoctrine()->getRepository( 'AppBundle:Category' )->findByUserAfter( $device->getUser(), $after );
+        $questions  = $this->getDoctrine()->getRepository( 'AppBundle:Question' )->findByUserAfter( $device->getUser(), $after );
+
+        $return = new \StdClass();
+
+        $return->categories = $categories;
+        $return->questions  = $questions;
+        $return->date       = ( new \DateTime() )->format( 'Y-m-d H:i:s' );
 
         return new JsonResponse( $return );
     }

@@ -41,7 +41,7 @@
                 }
 
                 self.lookupTimeout = window.setTimeout(function () {
-                    if (self.$iconField.val().length < 3) {
+                    if (self.$iconField.val().length < 1) {
                         return;
                     }
 
@@ -218,7 +218,7 @@
                 }
 
                 self.lookupTimeout = window.setTimeout(function () {
-                    if (self.$iconField.val().length < 3) {
+                    if (self.$iconField.val().length < 1) {
                         return;
                     }
 

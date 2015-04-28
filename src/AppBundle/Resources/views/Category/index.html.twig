@@ -39,25 +39,25 @@
             <div class="col-xs-6 col-sm-4 col-md-3">
                 <a class="category add" href="#newQuestionModal" data-toggle="modal" data-target="#newQuestionModal">
                     <div class="category-icon"><span>?</span></div>
-                    <div class="category-name"><h2>Nieuwe vraag</h2></div>
+                    <div class="category-name"><h2>Nieuwe zin</h2></div>
                 </a>
             </div>
         endif #}
     </div>
 
     {% if parent %}
-        <h2 class="page-header"><span class="glyphicon glyphicon-question-sign"></span> Vragen</h2>
+        <h2 class="page-header"><span class="glyphicon glyphicon-question-sign"></span> Zinnen</h2>
 
         <div id="questions">
         <ul class="question-list">
             {% for question in questions %}
                 <li><a data-question-id="{{ question.id }}" href="javascript:void(null);">{{ question.question }}</a></li>
             {% else %}
-                <li><p class="text-muted"><em>Er zijn nog geen vragen toegevoegd aan deze categorie.</em></p></li>
+                <li><p class="text-muted"><em>Er zijn nog geen zinnen toegevoegd aan deze categorie.</em></p></li>
             {% endfor %}
         </ul>
 
-            <button data-toggle="modal" id="addQuestionButton" data-target="#createQuestionModal" type="button" class="btn btn-primary btn-block btn-lg"><span class="glyphicon glyphicon-plus"></span> Vraag toevoegen</button>
+            <button data-toggle="modal" id="addQuestionButton" data-target="#createQuestionModal" type="button" class="btn btn-primary btn-block btn-lg"><span class="glyphicon glyphicon-plus"></span> Zin toevoegen</button>
         </div>
 
 
@@ -74,7 +74,7 @@
     {% embed "AppBundle::modal.html.twig" with {'modal_size': 'modal-lg'} %}
         {% block modal_style %}fade{% endblock %}
         {% block modal_id %}createQuestionModal{% endblock %}
-        {% block modal_title %}Voeg nieuwe vraag toe{% endblock %}
+        {% block modal_title %}Voeg nieuwe zin toe{% endblock %}
         {% block modal_body %}
             {%  include "AppBundle:Question:question.form.html.twig" with {'questionForm': questionForm, 'mode': 'create'} %}
         {% endblock %}
@@ -95,7 +95,7 @@
     {% embed "AppBundle::modal.html.twig" with {'modal_size': 'modal-lg'} %}
         {% block modal_style %}fade{% endblock %}
         {% block modal_id %}editQuestionModal{% endblock %}
-        {% block modal_title %}Bewerk vraag{% endblock %}
+        {% block modal_title %}Bewerk zin{% endblock %}
         {% block modal_body %}
             Nothing to see here
         {% endblock %}

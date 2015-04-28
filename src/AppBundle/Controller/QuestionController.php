@@ -59,7 +59,7 @@ class QuestionController extends Controller {
                 $messages[] = $validationError->getMessage();
             }
 
-            return new JsonResponse( new ErrorMessage( "Kon vraag niet toevoegen",
+            return new JsonResponse( new ErrorMessage( "Kon zin niet toevoegen",
                 "Volgende fouten deden zich voor: ", $messages ) );
         }
     }
@@ -108,7 +108,7 @@ class QuestionController extends Controller {
                 $messages[] = $validationError->getMessage();
             }
 
-            return new JsonResponse( new ErrorMessage( "Kon vraag niet bewerken",
+            return new JsonResponse( new ErrorMessage( "Kon zin niet bewerken",
                 "Volgende fouten deden zich voor: ", $messages ) );
         }
     }
@@ -124,7 +124,7 @@ class QuestionController extends Controller {
     {
         try {
             if ($question->getCategory()->getUser() != $this->getUser()) {
-                throw new \Exception( "Jij bent geen eigenaar van deze vraag." );
+                throw new \Exception( "Jij bent geen eigenaar van deze zin." );
             }
 
             $em = $this->getDoctrine()->getManager();
@@ -136,7 +136,7 @@ class QuestionController extends Controller {
 
             return new JsonResponse( true );
         } catch ( \Exception $e ) {
-            return new JsonResponse( new ErrorMessage( "Kon vraag niet verwijderen",
+            return new JsonResponse( new ErrorMessage( "Kon zin niet verwijderen",
                 $e->getMessage() ) );
         }
     }

@@ -76,7 +76,7 @@
             );
         },
         removeDevice: function(deviceId) {
-            if(!confirm('Weet u zeker dat u dit apparaat wil verwijderen? U zal op dit apparaat niet meer aan uw vragen kunnen.')) {
+            if(!confirm('Weet u zeker dat u dit apparaat wil verwijderen? U zal op dit apparaat niet meer aan uw zinnen kunnen.')) {
                 return;
             }
 

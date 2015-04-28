@@ -73,7 +73,7 @@
                     }
                 },
                 error: function (x, y, z) {
-                    self.$createModal.find(".placeholder").alertWindow("Fout", "Kon vraag niet toevoegen.");
+                    self.$createModal.find(".placeholder").alertWindow("Fout", "Kon zin niet toevoegen.");
                 },
                 complete: function () {
                 }
@@ -96,7 +96,7 @@
                     }
                 },
                 error: function (x, y, z) {
-                    self.$createModal.find(".placeholder").alertWindow("Fout", "Kon vraag niet bewerken.");
+                    self.$createModal.find(".placeholder").alertWindow("Fout", "Kon zin niet bewerken.");
                 },
                 complete: function () {
                 }
@@ -115,7 +115,7 @@
         deleteQuestion: function() {
             if (this.questionId <= 0) return;
 
-            if (!confirm("Ben je zeker dat je deze vraag wil verwijderen?")) return;
+            if (!confirm("Ben je zeker dat je deze zin wil verwijderen?")) return;
 
             var self = this;
 
@@ -131,7 +131,7 @@
                     }
                 },
                 error: function (x, y, z) {
-                    self.$placeHolder.alertWindow("Fout", "Kon vraag niet verwijderen.");
+                    self.$placeHolder.alertWindow("Fout", "Kon zin niet verwijderen.");
                 }
             });
         }

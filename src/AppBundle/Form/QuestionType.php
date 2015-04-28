@@ -16,7 +16,7 @@ class QuestionType extends AbstractType
     {
         $builder
             ->add( 'question', 'text', array(
-                'label' => 'Vraag',
+                'label' => 'Zin',
                 'attr' => array('placeholder' => 'Bv: Wat eten we deze middag?')
             ) );
     }

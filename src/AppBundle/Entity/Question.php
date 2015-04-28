@@ -26,7 +26,7 @@ class Question implements \JsonSerializable
      * @var string
      *
      * @ORM\Column(name="question", type="string", length=255)
-     * @Assert\NotBlank(message="De vraag kan niet leeg zijn.")
+     * @Assert\NotBlank(message="De zin kan niet leeg zijn.")
      */
     private $question;
 

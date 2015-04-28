@@ -58,5 +58,39 @@ class CategoryRepository extends EntityRepository
 
         return $categories;
     }
+    public function findByUserAfter( User $user, \DateTime $date )
+    {
+        //return $this->findBy(array('user' => $user, 'status' => 1), array('id' => 'asc'));
+
+        $categories = array();
+
+        $connection = $this->getEntityManager()->getConnection();
+
+        $query = "SELECT cat.*, i.icon FROM category cat join icon i on(cat.icon_id = i.id) where cat.updated > :last_update and cat.user_id = :user_id order by cat.id asc";
+
+        $statement = $connection->prepare( $query );
+        $statement->bindValue( 'last_update', $date->format('Y-m-d H:i:s') );
+        $statement->bindValue( 'user_id', $user->getId() );
+
+        $statement->execute();
+
+        $cats = $statement->fetchAll();
+
+        foreach ($cats as $cat) {
+            $newcat = new \StdClass();
+
+            $newcat->id      = $cat['id'];
+            $newcat->user    = $cat['user_id'];
+            $newcat->parent  = $cat['parent_id'];
+            $newcat->name    = $cat['name'];
+            $newcat->icon    = $cat['icon'];
+            $newcat->status  = $cat['status'];
+            $newcat->updated = $cat['updated'];
+
+            $categories[] = $newcat;
+        }
+
+        return $categories;
+    }
 
 }
